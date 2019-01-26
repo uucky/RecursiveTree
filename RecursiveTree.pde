@@ -58,9 +58,9 @@ void mousePressed() {
 
   float len = 100; //length of the trunk
 	int angle = 30;
-	int step = 10;
+	int step = 3;
   float branchShortenCoefficient = 0.8;
-  int branchNum = 7;
+  int branchNum = 4;
 
   PVector tracker = new PVector(0,0); 
   tracker.rotate( HALF_PI ); 
@@ -88,16 +88,28 @@ void DrawMyTree(float x, float y, float len, int angle, int step, float branchSh
     translate(0, -len); // move origin to top of trunk
     tracker.add(0, -len);
 
+    // rotate(radians(-angle * (branchNum - 1) /2 )); //rotate slightly to right
+    // // draw right branch
+    // for(int n=0; n < branchNum; n++){
+    //   DrawMyTree(x, y, len, angle, step - 1, branchShortenCoefficient, branchNum, tracker);
+    //   rotate(radians(angle));
+    // }
+    // rotate(radians(-angle * (branchNum - 1) /2 ));// rotate back to "normal"
+
+    //hard-coded
     rotate(radians(angle)); //rotate slightly to right
     // draw right branch
     DrawMyTree(x, y, len, angle, step - 1, branchShortenCoefficient, branchNum, tracker);
-
     // rotate back to the left (twice as much as before)
-    rotate(radians(-2 * angle));
-
+    rotate(radians(-1 * angle));
     // draw left branch
     DrawMyTree(x, y, len, angle, step -1, branchShortenCoefficient, branchNum, tracker);
-    rotate(radians(angle));// rotate back to "normal"
+    rotate(radians(-1 * angle));
+    // draw left branch
+    DrawMyTree(x, y, len, angle, step -1, branchShortenCoefficient, branchNum, tracker);
+    rotate(radians(angle)); 
+
+    
 
     // DrawOneStep(len, branchNum, angle);
 
@@ -111,14 +123,6 @@ void DrawOneStep(float len, int branchNum, int angle) {
 
   float fullRarianOfOneStep;
   float fullRadianOfOneStep = angle * (branchNum / 2 - 0.5);
-
-  // if(branchNum % 2 == 0) {
-  //   //if 8 branches, rotate(3.5) 8 / 2 - 0.5 angle
-  //   fullRadianOfOneStep = angle * (branchNum / 2 - 0.5);
-  // } else {
-  //   //if 7 branches, rotate(3) 7 / 2 - 0.5 angle
-  //   fullRadianOfOneStep = angle * (branchNum / 2 - 0.5)
-  // }
 
   rotate(radians(fullRadianOfOneStep)); //rotate to right
   DrawOneBranch(len); //the very end right branch
